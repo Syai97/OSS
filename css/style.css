@@ -1,0 +1,14 @@
+.nav{
+    padding: 20px;
+    background-color: #419ce1;
+    border-color: #1a4ab7;
+    font-size: 18px;
+}
+
+.nav-link{
+    color: white;
+}
+
+body {
+    background-color: rgba(214, 243, 255, 0.43);
+}

@@ -1,0 +1,164 @@
+<?php
+	function print_pre($data){
+		echo"<pre>";
+		print_r($data);
+		echo"</pre>";
+	}
+
+	function secure_input($con,$data)
+	{
+		$data = trim($data);
+		$data = mysqli_real_escape_string($con,$data);
+		$data = htmlentities($data);
+		return $data;
+	}
+
+	function active_menu($str){
+		if(isset($_GET['page']))
+		if($_GET['page']==$str)
+		return 'class="active"';
+
+	}
+
+ //redirect $url  $time=seconds
+	function redirect($url, $time=0)
+	{
+		  if (!headers_sent())
+		{
+			header("refresh:$time URL=$url");
+			exit;
+		}
+		else
+		{
+			echo "<meta http-equiv=\"refresh\" content=\"$time;url=$url\">\r\n";
+		  }
+	}
+
+	function date_ymd ($date){
+
+		if($date != '00-00-0000' && $date != ''&& $date != '01-01-1970')
+		$date_formated = date('Y-m-d',strtotime($date));
+		else
+		$date_formated = '0000-00-00';
+
+		return $date_formated;
+
+	}
+
+	function date_dmy($date){
+
+		if($date != '0000-00-00' && $date != ''&& $date != '1970-01-01')
+		$date_formated = date('d-m-Y',strtotime($date));
+		else
+		$date_formated = '';
+
+		return $date_formated;
+	}
+
+	function str_rand($length = 8, $seeds = 'alphanum')
+	{
+		// Possible seeds
+		$seedings['alpha'] = 'abcdefghijklmnopqrstuvwqyz';
+		$seedings['numeric'] = '0123456789';
+		$seedings['alphanum'] = 'abcdefghijklmnopqrstuvwqyz0123456789';
+		$seedings['hexidec'] = '0123456789abcdef';
+
+		// Choose seed
+		if (isset($seedings[$seeds]))
+		{
+			$seeds = $seedings[$seeds];
+		}
+
+		// Seed generator
+		list($usec, $sec) = explode(' ', microtime());
+		$seed = (float) $sec + ((float) $usec * 100000);
+		mt_srand($seed);
+
+		// Generate
+		$str = '';
+		$seeds_count = strlen($seeds);
+
+		for ($i = 0; $length > $i; $i++)
+		{
+			$str .= $seeds{mt_rand(0, $seeds_count - 1)};
+		}
+
+		return $str;
+	}
+
+
+	function send_notif($email, $name, $ic, $message, $title){
+
+		$mail = new PHPMailer;
+
+		 $mail->SMTPDebug = 2;                               // Enable verbose debug output
+
+				//commen-here start
+			$mail->isSMTP();                                      // Set mailer to use SMTP
+			$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+			$mail->SMTPAuth = true;                               // Enable SMTP authentication
+			$mail->Username = 'testemailsc21@gmail.com';                 // SMTP username
+			$mail->Password = 'Syaiful97';                           // SMTP password
+			$mail->SMTPSecure = 'tsl';                            // Enable TLS encryption, `ssl` also accepted
+			$mail->Port = 587;                                    // TCP port to connect to
+			//commen-here end
+
+
+
+		$mail->setFrom('no-reply@'.DOMAIN, 'Administrator');
+
+		$mail->addAddress($email, $name);     // Add a recipient
+
+		$mail->addReplyTo('no-reply@'.DOMAIN, 'No-Reply');
+
+
+		$mail->isHTML(true);
+
+
+		$mail->Subject =$title ;
+		$mail->Body =$message ;
+
+		if (!$mail->Send()) {
+<<<<<<< HEAD
+//			$err = "Check Internet Connection OR SMTP settings";
+//			echo '<div class="alert alert-danger text-center" role="alert">
+//			<h5>Email Tidak Dapat Dihantar </h5>
+//			</div>';
+=======
+			$err = "Check Internet Connection OR SMTP settings";
+			redirect('index.php?emailerror=true');
+>>>>>>> cac3694a77a7c2ef3cdcdc4a9432e3ddb8404802
+		}else{
+			$err = "Check Internet Connection OR SMTP settings";
+			echo '<div class="alert alert-success text-center" role="alert">
+			<h5>Email Dapat Dihantar </h5>
+			</div>';
+
+		}
+
+	}
+
+	function kategori_name($con,$k_id){
+
+		$query_k = "SELECT * FROM tb_kategori WHERE k_id = '$k_id'";
+		$result_k = mysqli_query($con,$query_k);
+		$row_k = mysqli_fetch_array($result_k);
+		return $row_k['k_name'];
+	}
+
+	function maklumat_pelajar($con,$no_kp){
+		$query2 = "SELECT *
+
+		FROM tb_pelajar a
+
+		LEFT JOIN
+		tb_kelas b ON a.plj_kelas = b.kls_id
+
+		LEFT JOIN
+		tb_dorm c ON a.plj_kamar = c.drm_id
+
+
+		WHERE plj_noKp = '$no_kp' ";
+		return mysqli_query($con,$query2);
+
+	}
