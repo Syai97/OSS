@@ -4,16 +4,17 @@ include("config/db.php");
 $_SESSION['payment'] = false;
 if(!isset($_SESSION['userid'])){
     echo"
-<link rel=\"stylesheet\" href=\"boot/css/bootstrap.min.css\">
-
+<link rel=\"stylesheet\" href=\"css/bootstrap.min.css\">
+<div class='container'>
 <div class=\"row\" style=\"padding-bottom: 10px; padding-top: 10px\">
-									<div class=\"col-md-4 col-md-offset-4\" align=\"center\">
+									<div class=\"col\" align=\"center\">
 									<div class=\"alert alert-danger alert-dismissable\" id=\"mydiv\">
 									<strong>Please Log In First!</strong>
 									<br/><br/>
 									<a href='Login.php'><p>Click Here To Login.</p></a>
 									</div>
 									</div>
+          </div>
           </div>";
 }
 else {

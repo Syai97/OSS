@@ -1,7 +1,7 @@
 <?php
   include_once ("config/db.php");
   if(!isset($_SESSION['userid'])){
-      echo"<div class='well' style='background-color: #fc1e1e;'><p style='color: white;'>Please Login Or Register To Buy Item</p><a href='Login.php' style='color: #fffffe'>Click Here</p></div>";
+//    echo "<script>alert('Please Register As Customer To Buy Item.');</script>";
   }
   else {
 
