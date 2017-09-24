@@ -1,45 +1,42 @@
-
-
-
 <div class="container" style="padding-top: 50px">
     <div class="jumbotron" style="background-color: #65c6e1">
         <div align="center" style="font-size: large;">
-        <h1>Welcome</h1>
-        <p>To The Most Diverse Shopping Website</p>
+            <h1>Welcome</h1>
+            <p>To The Most Diverse Shopping Website</p>
         </div>
     </div>
 
     <div class="row">
         <div class="col">
-        <div class="col card" align="center">
-            <div class="card-block">
-                <h4 class="card-title"><i class="fa fa-search"></i>&nbsp;Search By Seller :</h4>
-                <?php
-                  $sql = "SELECT * FROM users WHERE ucid = 1";
-                  $query = mysqli_query($con, $sql);
+            <div class="col card" align="center">
+                <div class="card-block">
+                    <h4 class="card-title"><i class="fa fa-search"></i>&nbsp;Search By Seller :</h4>
+                    <?php
+                    $sql = "SELECT * FROM users WHERE ucid = 1";
+                    $query = mysqli_query($con, $sql);
 
-                  while($row = mysqli_fetch_array($query)){
-                      $sellername = $row['username'];
-                      echo "
+                    while ($row = mysqli_fetch_array($query)) {
+                        $sellername = $row['username'];
+                        echo "
                         <button type=\"button\" class=\"btn btn-primary\">$sellername</button>
                       ";
-                  }
-                ?>
+                    }
+                    ?>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 
     <div class="row" style="padding-top: 40px">
         <div class="col">
             <?php
-            include ("cart.php");
+            include("cart.php");
             ?>
         </div>
     </div>
     <?php
-    $current_url = urlencode($url="http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
-    if(isset($_SESSION['ucid'])) {
+    $current_url = urlencode($url = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+    if (isset($_SESSION['ucid'])) {
         $category = $_SESSION['ucid'];
         if ($category == 1) {
             echo "
@@ -54,12 +51,12 @@
 
     <div class="row" style="padding-top: 50px">
         <?php
-//        $_SESSION['ucid'] = 0;
+        //        $_SESSION['ucid'] = 0;
 
         $query = "SELECT i.itemid, i.itemstatus, i.itemname, i.itemprice, path FROM item i join img on img.itemid = i.itemid ORDER BY i.itemid ASC";
         $results = mysqli_query($con, $query);
 
-        while($items = mysqli_fetch_array($results)){
+        while ($items = mysqli_fetch_array($results)) {
             $path = $items['path'];
             $itemname = $items['itemname'];
             $itemprice = $items['itemprice'];
@@ -67,8 +64,8 @@
             $itemstatus = $items['itemstatus'];
             $status = "Available";
 
-            if($status = $itemstatus){
-            echo "
+            if ($status = $itemstatus) {
+                echo "
             <div class='col-lg-4' style='padding-top: 20px'>
               <div class=\"card\">
                 <img class=\"card-img-top\" src=\"$path\" height='300px' style='padding: 8px' align='center'>
