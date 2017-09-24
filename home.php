@@ -8,7 +8,7 @@
 
     <div class="row">
         <div class="col">
-            <div class="col card" align="center">
+            <div class="col-lg-12 card" align="center">
                 <div class="card-block">
                     <h4 class="card-title"><i class="fa fa-search"></i>&nbsp;Search By Seller :</h4>
                     <?php
@@ -16,7 +16,7 @@
                     $query = mysqli_query($con, $sql);
 
                     while ($row = mysqli_fetch_array($query)) {
-                        $sellername = $row['username'];
+                        $sellername = $row['userfullname'];
                         echo "
                         <button type=\"button\" class=\"btn btn-primary\">$sellername</button>
                       ";
