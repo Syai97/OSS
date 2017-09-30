@@ -27,7 +27,9 @@
             $totalCart = count($_SESSION["cart_products"]);
           }
           echo " <a class=\"nav-link\" href=\"index.php?page=$page\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i>&nbsp;Welcome, $username</a>";
-          echo "<a class=\"nav-link\" href=\"#\"><i class=\"fa fa-shopping-cart\"></i>&nbsp;View Cart&nbsp;<span class=\"badge badge-pill badge-danger\">$totalCart</span></a>";
+          if($_SESSION['ucid']==2){
+            echo "<a class=\"nav-link\" href=\"index.php?page=viewCart\"><i class=\"fa fa-shopping-cart\"></i>&nbsp;View Cart&nbsp;<span class=\"badge badge-pill badge-danger\">$totalCart</span></a>";
+          }
           echo "<a class=\"nav-link\" href=\"logout.php\"><i class=\"fa fa-sign-out\" aria-hidden=\"true\"></i>&nbsp;Log Out</a>";
       }
       else{

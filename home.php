@@ -7,8 +7,8 @@
     </div>
 
     <div class="row">
-        <div class="col">
-            <div class="col-lg-12 card" align="center">
+        <div class="col-lg-12">
+            <div class="card" align="center">
                 <div class="card-block">
                     <h4 class="card-title"><i class="fa fa-search"></i>&nbsp;Search By Seller :</h4>
                     <?php
@@ -22,6 +22,12 @@
                       ";
                     }
                     ?>
+                    <div style="padding-top: 20px">
+                        <h4 class="card-title"><i class="fa fa-search"></i>&nbsp;Search By Item Name :</h4>
+                        <form>
+                            <input type="text" id="itemname" class="form-control">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -67,8 +73,8 @@
             if ($status = $itemstatus) {
                 echo "
             <div class='col-lg-4' style='padding-top: 20px'>
-              <div class=\"card\">
-                <img class=\"card-img-top\" src=\"$path\" height='300px' style='padding: 8px' align='center'>
+              <div class=\"card\" style='border: solid 1px;'>
+                <img class=\"card-img-top\" src=\"$path\" height='300px' style='padding: 8px;' align='center'>
                 <div class=\"card-block\">
                   <h4 class=\"card-title\">$itemname</h4>
                   <p class=\"card-text\"><b>RM $itemprice</b></p>
