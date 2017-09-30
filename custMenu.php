@@ -84,13 +84,10 @@
                                       <td>$ordersdate</td>
                                       <td>$orderstatus</td>";
                                                 if($orderstatus != 'Paid'){
-                                                    echo" <td style='padding-top: 10px'>
-                                        <form method='post' action='MakePayment.php' class='form-group'>
-                                           <input type='hidden' name='userid' value='$userid'>
-                                           <input type='hidden' name='ordersid' value='$ordersid'>
-                                           <button type='submit' class='btn btn-primary' name='submit'>Make Payment</button>
-                                        </form>
-                                      </td>";
+                                                    echo" 
+                                        <td style='padding-top: 10px'> 
+                                           <button type='button' class='btn btn-primary' name='submit' onclick='location.href = \"index.php?page=itemPayment&od=$ordersid\"'>Make Payment</button>
+                                        </td>";
                                                 }
                                                 else{
                                                     echo"<td>Already Paid</td>";

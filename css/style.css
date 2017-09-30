@@ -10,5 +10,8 @@
 }
 
 body {
-    background-color: rgba(214, 243, 255, 0.43);
+    /*background-color: rgba(214, 243, 255, 0.43);*/
+    background-image: url('../background/Fotolia_70869411_Subscription_Monthly_M.jpg');
+    background-repeat:no-repeat;
+    background-size:cover;
 }
