@@ -1,6 +1,27 @@
 <div class="container">
     <div class="row" style="padding-top: 50px">
         <div class="col-lg-12">
+
+            <?php
+               if(isset($_GET['paySuccess'])){
+                   if($_GET['paySuccess'] == '1'){
+                       echo "
+                       <div class='alert alert-success' align='center'>
+                            You Have Successfully Paid For Your Item.
+                            You Orders Will Be Notified To The Seller.
+                            <a href='printreceipt.php'> Click Here To Print The Receipt</a>
+                       </div> 
+                       ";
+                   }
+                   else{
+                       echo "
+                       <div class='alert alert-danger' align='center'>
+                            There Is An Error In Processing Your Payment.Please Contact User Support. 
+                       </div> 
+                       ";
+                   }
+               }
+            ?>
             <div class="card">
                 <div class="card-block">
                     <h1 style="text-align: center"><i class="fa fa-bars"></i>&nbsp;Customer Menu</h1>

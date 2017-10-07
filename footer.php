@@ -11,7 +11,7 @@ function editItem(id){
 }
 
 </script>
-<footer id="footer" style="margin-top: 40px;">
+<footer id="footer" style="margin-top: 40px;color: white">
        <p class="text-center">Copyright OSS &copy; 2017</p>
 </footer>
 </body>
