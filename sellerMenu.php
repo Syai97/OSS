@@ -3,7 +3,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-block">
-                    <h1 style="text-align: center"><i class="fa fa-bars"></i>&nbsp;Customer Menu</h1>
+                    <h1 style="text-align: center"><i class="fa fa-bars"></i>&nbsp;Seller Menu</h1>
 
                     <div class="row">
                         <div class="col-lg-12">
@@ -129,6 +129,7 @@
                                                 $query2 = mysqli_query($con, $sql2);
                                              
                                                 echo " 
+                                                <form method='post' action='sellerMenu_ps.php'>
                                                     <table class='table table-hover'>
                                                         <thead>
                                                             <tr>
@@ -144,6 +145,7 @@
                                                 ";
                                                 $index = 1;
                                                 while($rowItem = mysqli_fetch_array($query2)){
+                                                    $itemId = $rowItem['itemid'];
                                                     $itemName = $rowItem['itemname'];
                                                     $itemPrice = $rowItem['itemprice'];
                                                     $itemStatus = $rowItem['itemstatus'];
@@ -155,33 +157,40 @@
                                                         <td><input name='price' id='price-$index' class='form-control' value='$itemPrice' disabled></td>
                                                         
                                                     ";
-                                                    echo "
-                                                        <td>
-                                                            <div class='dropdown'>
-                                                                <button class='btn btn-secondary dropdown-toggle disabled' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                                                                    $itemStatus
-                                                                </button>
-                                                                <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
-                                                                    <a class='dropdown-item' href='#'>Available</a>
-                                                                    <a class='dropdown-item' href='#'>Unavailable</a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    ";
-                                                    
-
-                                                    echo "  <td>
-                                                                <button class='btn btn-primary' type='submit' onclick= 'editItem(price-$index))'>Edit</button>
+                                                    if($itemStatus=="Available") {
+                                                        echo "
+                                                            <td>
+                                                                <select class='custom-select mb-2 mr-sm-2 mb-sm-0' id='availability-$index' name='availability' disabled>
+                                                                    <option value='1' selected>Available</option>
+                                                                    <option value='0'>Not Available</option>
+                                                                </select>
+                                                            </td>";
+                                                    } else {
+                                                        echo "
+                                                            <td>
+                                                                <select class='custom-select mb-2 mr-sm-2 mb-sm-0' id='availability-$index' name='availability' disabled>
+                                                                    <option value='1' >Available</option>
+                                                                    <option value='0' selected>Not Available</option>
+                                                                </select>
                                                             </td>
-                                                    ";
-
+                                                        ";
+                                                    }
+                                                    
+                                                           
+                                                        echo "  
+                                                                <td>
+                                                                    <button class='btn btn-primary' id='editItemButton-$index' onClick={editItem($index)} >Edit</button>
+                                                                </td>
+                                                            ";
+                        
                                                     $index++;
                                                 }
                                                 
                                                 echo "
-                                                            </tr>   
-                                                        </tbody>
-                                                    </table>
+                                                                </tr>   
+                                                            </tbody>
+                                                        </table>
+                                                    <form>
                                                 ";
                                             ?>
                                         </div>
