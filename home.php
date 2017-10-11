@@ -22,10 +22,10 @@
                       ";
                     }
                     ?>
-                    <div style="padding-top: 20px">
+                    <div style="padding-top: 40px">
                         <h4 class="card-title"><i class="fa fa-search"></i>&nbsp;Search By Item Name :</h4>
                         <form>
-                            <input type="text" id="itemname" class="form-control">
+                            <input type="text" id="itemname" class="form-control col-lg-4">
                         </form>
                     </div>
                 </div>

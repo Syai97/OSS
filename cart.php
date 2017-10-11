@@ -35,7 +35,7 @@
         }
         echo '<td colspan="4">';
         echo '<p></p>';
-        echo '<button class="btn btn-primary" type="submit"><i class="fa fa-arrow-circle-o-up"></i>&nbsp;Update</button>&nbsp;  <a href="view_cart.php" class="btn btn-success"><i class="fa fa-arrow-circle-o-right"></i>&nbsp;Checkout</a>';
+        echo '<button class="btn btn-primary" type="submit"><i class="fa fa-arrow-circle-o-up"></i>&nbsp;Update</button>&nbsp;  <a href="index.php?page=viewCart" class="btn btn-success"><i class="fa fa-arrow-circle-o-right"></i>&nbsp;Checkout</a>';
         echo '</td>';
         echo '</tbody>';
         echo '</table>';
