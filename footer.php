@@ -6,8 +6,10 @@
 <script src="js/bootstrap.min.js"></script>
 <script>
 
-function editItem(id){
-   document.getElementById(id).disabled = false;
+function editItem($elementId){
+    document.getElementById("price-".concat($elementId)).disabled = false;
+    document.getElementById("availability-".concat($elementId)).disabled = false;
+    document.getElementById("editItemButton-".concat($elementId)).outerHTML = "<button class='btn btn-primary' type='submit' name='editItem'>Submit</button>";
 }
 
 //function sortItem(id){
