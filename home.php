@@ -17,6 +17,7 @@
 
                     while ($row = mysqli_fetch_array($query)) {
                         $sellername = $row['userfullname'];
+                        $sellerid = $row['userid'];
                         echo "
                         <button type=\"button\" class=\"btn btn-primary\">$sellername</button>
                       ";
@@ -72,7 +73,7 @@
 
             if ($status = $itemstatus) {
                 echo "
-            <div class='col-lg-4' style='padding-top: 20px'>
+            <div class='col-lg-4' style='padding-top: 20px' id='$itemname'>
               <div class=\"card\" style='border: solid 1px;'>
                 <img class=\"card-img-top\" src=\"$path\" height='300px' style='padding: 8px;' align='center'>
                 <div class=\"card-block\">

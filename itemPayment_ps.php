@@ -10,7 +10,7 @@ if(isset($_POST['payProof'])){
     $pay_Proof = $_FILES['payment']['name'];
     $ext = pathinfo($pay_Proof, PATHINFO_EXTENSION);
     $pay_Proof = $username;
-    $filePath = "payment/".$pay_Proof.'.'.$ext;
+    $filePath = "payment/".$pay_Proof."_$ordersid".'.'.$ext;
 
 
 
