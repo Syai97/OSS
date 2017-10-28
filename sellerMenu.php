@@ -1,6 +1,24 @@
 <div class="container">
     <div class="row" style="padding-top: 50px">
         <div class="col-lg-12">
+        <?php 
+            if(isset($_GET['message'])){
+                if($_GET['message'] == 'true'){
+                    echo "
+                    <div class='alert alert-success' align='center'>
+                        Item Successfully Updated.
+                    </div> 
+                    ";
+                }
+                else{
+                    echo "
+                    <div class='alert alert-danger' align='center'>
+                        There Is An Error In Processing Your Update Request.Please Contact User Support. 
+                    </div> 
+                    ";
+                }
+            }
+        ?>
             <div class="card">
                 <div class="card-block">
                     <h1 style="text-align: center"><i class="fa fa-bars"></i>&nbsp;Seller Menu</h1>
@@ -154,23 +172,25 @@
                                                     " <tr>
                                                         <th scope='row'>$index</th>
                                                         <td>$itemName</td>
-                                                        <td><input name='price' id='price-$index' class='form-control' value='$itemPrice' disabled></td>
+                                                        <td>
+                                                            <input name='price' id='price-$itemId' class='form-control' value='$itemPrice' disabled>
+                                                        </td>
                                                         
                                                     ";
                                                     if($itemStatus=="Available") {
                                                         echo "
                                                             <td>
-                                                                <select class='custom-select mb-2 mr-sm-2 mb-sm-0' id='availability-$index' name='availability' disabled>
-                                                                    <option value='1' selected>Available</option>
-                                                                    <option value='0'>Not Available</option>
+                                                                <select class='custom-select mb-2 mr-sm-2 mb-sm-0' id='availability-$itemId' name='availability' disabled>
+                                                                    <option value='Available' selected>Available</option>
+                                                                    <option value='Unavailable'>Not Available</option>
                                                                 </select>
                                                             </td>";
                                                     } else {
                                                         echo "
                                                             <td>
-                                                                <select class='custom-select mb-2 mr-sm-2 mb-sm-0' id='availability-$index' name='availability' disabled>
-                                                                    <option value='1' >Available</option>
-                                                                    <option value='0' selected>Not Available</option>
+                                                                <select class='custom-select mb-2 mr-sm-2 mb-sm-0' id='availability-$itemId' name='availability' disabled>
+                                                                    <option value='Available' >Available</option>
+                                                                    <option value='Unavailable' selected>Not Available</option>
                                                                 </select>
                                                             </td>
                                                         ";
@@ -179,7 +199,8 @@
                                                            
                                                         echo "  
                                                                 <td>
-                                                                    <button class='btn btn-primary' id='editItemButton-$index' onClick={editItem($index)} >Edit</button>
+                                                                    <button type='button' class='btn btn-primary' id='editItemButton-$itemId' onClick={editItem($itemId)} >Edit</button>
+                                                                    <button type='button' class='btn btn-danger' id='cancelEditItemButton-$itemId' onClick={cancelEditItem($itemId)} hidden>Cancel</button>
                                                                 </td>
                                                             ";
                         

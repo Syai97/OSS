@@ -9,7 +9,15 @@
 function editItem($elementId){
     document.getElementById("price-".concat($elementId)).disabled = false;
     document.getElementById("availability-".concat($elementId)).disabled = false;
-    document.getElementById("editItemButton-".concat($elementId)).outerHTML = "<button class='btn btn-primary' type='submit' name='editItem'>Submit</button>";
+    document.getElementById("cancelEditItemButton-".concat($elementId)).hidden = false;
+    document.getElementById("editItemButton-".concat($elementId)).outerHTML = "<button class='btn btn-primary' type='submit' id='submitButton' name='editItem' value='"+$elementId+"'>Submit</button>";
+}
+
+function cancelEditItem($elementId){
+    document.getElementById("cancelEditItemButton-".concat($elementId)).hidden = true;
+    document.getElementById("price-".concat($elementId)).disabled = true;
+    document.getElementById("availability-".concat($elementId)).disabled = true;
+    document.getElementById("submitButton").outerHTML = "<button type='button' class='btn btn-primary' id='editItemButton-"+$elementId+"' onClick={editItem("+$elementId+")} >Edit</button>";
 }
 
 //function sortItem(id){
