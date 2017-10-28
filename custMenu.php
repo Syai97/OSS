@@ -71,7 +71,7 @@
                                             </div>
                                             <br/>
                                             <div class='col-lg-6'>
-                                                <button class='btn btn-info'>Update Account</button>
+                                                <button class='btn btn-info' onclick='location.href = \"index.php?page=updateAccount\" '>Update Account</button>
                                             </div>
                                       
                                             "
@@ -116,12 +116,8 @@
 
                                                 if($orderstatus == 'Paid') {
                                                     echo "<td style='padding-top: 10px'>
-                                        <form method='post' action='receipt2.php' class='form-group'>
-                                          <input type='hidden' name='ordersid' value='$ordersid'>
-                                          <input type='hidden' name='userid' value='$userid'>
-                                          <button type='submit' class='btn btn-primary' name='submit'>View</button>
-                                        </form>
-                                     </td>";
+                                                       <button type='button' class='btn btn-primary' name='viewReceipt' onclick='location.href = \"index.php?page=orderReceipt&od=$ordersid\"'>View</button>
+                                                     </td>";
                                                 }
                                                 else{
                                                     echo"<td>Please Make Payment For Receipt To Be Generated</td>";
