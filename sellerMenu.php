@@ -82,54 +82,47 @@
                                     <div class="collapse" id="myOrders" style="padding-top: 10px">
                                         <div class="card card-block">
                                             <?php
-                                                $userid = $_SESSION['userid'];
-                                                $sql = "select ordersid, ordersdate, orderstatus from orders  where userid = $userid";
-                                                $query = mysqli_query($con, $sql);
+                                                $userid = "1";
+                                                $sqlCustOrders = "SELECT orders.ordersdate,orders.ordersid,orders.orderstatus,orders.paymentproof,ordersdetail.quantity as itemQuantity, item.itemname as itemName
+                                                FROM orders 
+                                                JOIN ordersdetail
+                                                ON orders.ordersid = ordersdetail.detailid
+                                                JOIN item
+                                                ON ordersdetail.itemid = item.itemid
+                                                JOIN users
+                                                ON item.userid = users.userid
+                                                WHERE users.userid = $userid";
+                                                $queryCustOrders = mysqli_query($con, $sqlCustOrders);
                                                 echo"<table class='table table-bordered table-responsive'>
                                                     <thead align='left'>
                                                     <tr>
                                                         <th>Order ID</th> 
                                                         <th>Order Date</th>
-                                                        <th>Order Status</th>
+                                                        <th>Item Name</th>
+                                                        <th>Quantity</th>
                                                         <th>Payment Status</th>
                                                         <th>View Receipt</th>
+                                                        
                                                     </tr>
                                                     </thead>
                                                     <tbody>";
-                                                while($row = mysqli_fetch_array($query)){
-                                                    $ordersid = $row['ordersid'];
-                                                    $ordersdate = $row['ordersdate'];
-                                                    $orderstatus = $row['orderstatus'];
-
+                                                while($row = mysqli_fetch_array($queryCustOrders)){
+                                                    $ordersId = $row['ordersid'];
+                                                    $ordersDate = $row['ordersdate'];
+                                                    $orderStatus = $row['orderstatus'];
+                                                    $orderReceipt = $row['paymentproof'];
+                                                    $itemName = $row['itemName'];
+                                                    $itemQuantity = $row['itemQuantity'];
                                                     echo"   <tr>
-                                                            <td>$ordersid</td>
-                                                            <td>$ordersdate</td>
-                                                            <td>$orderstatus</td>";
-                                                    if($orderstatus != 'Paid'){
-                                                        echo"   <td style='padding-top: 10px'>
-                                                                    <form method='post' action='MakePayment.php' class='form-group'>
-                                                                    <input type='hidden' name='userid' value='$userid'>
-                                                                    <input type='hidden' name='ordersid' value='$ordersid'>
-                                                                    <button type='submit' class='btn btn-primary' name='submit'>Make Payment</button>
-                                                                    </form>
-                                                                </td>";
-                                                    }
-                                                    else{
-                                                        echo"<td>Already Paid</td>";
-                                                    }
-
-                                                    if($orderstatus == 'Paid') {
-                                                        echo "  <td style='padding-top: 10px'>
-                                                                    <form method='post' action='receipt2.php' class='form-group'>
-                                                                    <input type='hidden' name='ordersid' value='$ordersid'>
-                                                                    <input type='hidden' name='userid' value='$userid'>
-                                                                    <button type='submit' class='btn btn-primary' name='submit'>View</button>
-                                                                    </form>
-                                                                </td>";
-                                                    }
-                                                    else{
-                                                        echo"<td>Please Make Payment For Receipt To Be Generated</td>";
-                                                    }
+                                                            <td>$ordersId</td>
+                                                            <td>$ordersDate</td>
+                                                            <td>$itemName</td>
+                                                            <td>$itemQuantity</td>
+                                                            <td>$orderStatus</td>
+                                                            <td>receipt</td>";
+                                                    
+                                                        
+            
                                                 }
                                                 echo"
                                                         </tr>
@@ -145,7 +138,7 @@
                                                 
                                                 $sql2 = "SELECT * FROM item WHERE userid = $userid";
                                                 $query2 = mysqli_query($con, $sql2);
-                                             
+                                            
                                                 echo " 
                                                 <form method='post' action='sellerMenu_ps.php'>
                                                     <table class='table table-hover'>
