@@ -5,8 +5,8 @@ if(isset($_POST['login'])){
     include ("config/db.php");
     include ("lib/func.php");
 
-    $username = secure_input($con, $_POST['username']);
-    $password = secure_input($con, $_POST['password']);
+    $username = secure_input($con,$_POST['username']);
+    $password = secure_input($con,$_POST['password']);
 
     $userid = null;
 
