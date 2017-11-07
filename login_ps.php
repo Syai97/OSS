@@ -12,7 +12,7 @@ if(isset($_POST['login'])){
 
     //$password = md5($password);
 
-    $sql = "SELECT * FROM users WHERE username='$username' LIMIT 1";
+    $sql = "SELECT * FROM users WHERE username=$username LIMIT 1";
     $query = mysqli_query($con, $sql);
     $row = mysqli_fetch_array($query);
     $id = $row['username'];
