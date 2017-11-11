@@ -82,7 +82,8 @@
                                     <div class="collapse" id="myOrders" style="padding-top: 10px">
                                         <div class="card card-block">
                                             <?php
-                                                $userid = "1";
+                                            //SQL QUERY FAIL??? CHECK THIS !!!
+                                                $userid = "1";//CHANGE THIS DONT FORGET!!!! BITCH
                                                 $sqlCustOrders = "SELECT orders.ordersdate,orders.ordersid,orders.orderstatus,orders.paymentproof,ordersdetail.quantity as itemQuantity, item.itemname as itemName
                                                 FROM orders 
                                                 JOIN ordersdetail
@@ -101,11 +102,13 @@
                                                         <th>Item Name</th>
                                                         <th>Quantity</th>
                                                         <th>Payment Status</th>
+                                                        <th>Buyer Username</th>
                                                         <th>View Receipt</th>
                                                         
                                                     </tr>
                                                     </thead>
                                                     <tbody>";
+                                                $indexOrderTable = 1;
                                                 while($row = mysqli_fetch_array($queryCustOrders)){
                                                     $ordersId = $row['ordersid'];
                                                     $ordersDate = $row['ordersdate'];
@@ -113,21 +116,59 @@
                                                     $orderReceipt = $row['paymentproof'];
                                                     $itemName = $row['itemName'];
                                                     $itemQuantity = $row['itemQuantity'];
+
+                                                    //query customer info based on orders number
+                                                    $sqlfetchCustInfo = "SELECT users.userid,users.username,users.userfullname,users.usertel,users.useraddress,orders.ordersid
+                                                    FROM users
+                                                    JOIN orders
+                                                    ON orders.userid = users.userid
+                                                    WHERE orders.ordersid = $ordersId LIMIT 1";
+                                                    $queryCustInfo = mysqli_query($con,$sqlfetchCustInfo);
+                                                    $rowCustInfo = mysqli_fetch_array($queryCustInfo);
+                                                    $custId = $rowCustInfo['userid'];
+                                                    $custUsername = $rowCustInfo['username'];
+                                                    $custFullname = $rowCustInfo['userfullname'];
+                                                    $custTel = $rowCustInfo['usertel'];
+                                                    $custAddress = $rowCustInfo['useraddress'];
+
                                                     echo"   <tr>
                                                             <td>$ordersId</td>
                                                             <td>$ordersDate</td>
                                                             <td>$itemName</td>
                                                             <td>$itemQuantity</td>
                                                             <td>$orderStatus</td>
-                                                            <td>receipt</td>";
+                                                            <td>
+                                                                <button type='button' class='btn btn-link' data-toggle='popover' data-placement='right' data-html='true' title='Customer Informations' 
+                                                                data-content='
+                                                                    UserId : $custId</br> 
+                                                                    Username : $custUsername</br>
+                                                                    Full Name : $custFullname</br>
+                                                                    Telephone Number : $custTel</br>
+                                                                    Address : $custAddress</br>
+                                                                    '>
+                                                                    $custUsername
+                                                                </button>
+                                                            </td>
+                                                            <td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#myModal$indexOrderTable'>View Receipt</button></td>
+                                                            
+                                                            <div id='myModal$indexOrderTable' class='modal fade' tabindex='$indexOrderTable' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+                                                            <div class='modal-dialog'>
+                                                              <div class='modal-content'>
+                                                                  <div class='modal-body'>
+                                                                      <img src='$orderReceipt' width='250' height='250' class='img-responsive'>
+                                                                  </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>";
                                                     
                                                         
-            
+                                                          $indexOrderTable++;
                                                 }
                                                 echo"
                                                         </tr>
                                                         </tbody>
                                                         </table>";
+                                                        
 
                                             ?>
                                         </div>
