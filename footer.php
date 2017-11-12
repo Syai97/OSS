@@ -1,9 +1,8 @@
 
 
-
-<!-- <script src="js/jquery.min.js"></script>
-<script src="js/popper.min.js"></script>-->
-<script src="js/bootstrap.min.js"></script> 
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script>
 
 function editItem($elementId){
@@ -19,7 +18,23 @@ function cancelEditItem($elementId){
     document.getElementById("availability-".concat($elementId)).disabled = true;
     document.getElementById("submitButton").outerHTML = "<button type='button' class='btn btn-primary' id='editItemButton-"+$elementId+"' onClick={editItem("+$elementId+")} >Edit</button>";
 }
+//for modal picture in view receipt
+function centerModal() {
+    $(this).css('display', 'block');
+    var $dialog = $(this).find(".modal-dialog");
+    var offset = ($(window).height() - $dialog.height()) / 2;
+    // Center modal vertically in window
+    $dialog.css("margin-top", offset);
+}
 
+$('.modal').on('show.bs.modal', centerModal);
+$(window).on("resize", function () {
+    $('.modal:visible').each(centerModal);
+});
+//for popover in seller menu
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
 //function sortItem(id){
 //    alert(id);
 //    document.getElementById(id).style.display = "none";

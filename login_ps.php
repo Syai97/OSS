@@ -5,14 +5,14 @@ if(isset($_POST['login'])){
     include ("config/db.php");
     include ("lib/func.php");
 
-    $username = secure_input($con, $_POST['username']);
-    $password = secure_input($con, $_POST['password']);
+    $username = secure_input($con,$_POST['username']);
+    $password = secure_input($con,$_POST['password']);
 
     $userid = null;
 
     //$password = md5($password);
 
-    $sql = "SELECT * FROM users WHERE username='$username' LIMIT 1";
+    $sql = "SELECT * FROM users WHERE username=$username LIMIT 1";
     $query = mysqli_query($con, $sql);
     $row = mysqli_fetch_array($query);
     $id = $row['username'];
