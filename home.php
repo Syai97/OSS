@@ -10,24 +10,14 @@
         <div class="col-lg-12">
             <div class="card" align="center">
                 <div class="card-block">
-                    <h4 class="card-title"><i class="fa fa-search"></i>&nbsp;Search By Seller :</h4>
-                    <?php
-                    $sql = "SELECT * FROM users WHERE ucid = 1";
-                    $query = mysqli_query($con, $sql);
-
-                    while ($row = mysqli_fetch_array($query)) {
-                        $sellername = $row['userfullname'];
-                        $sellerid = $row['userid'];
-                        echo "
-                        <button type=\"button\" class=\"btn btn-primary\">$sellername</button>
-                      ";
-                    }
-                    ?>
-                    <div style="padding-top: 40px">
+                    <div>
                         <h4 class="card-title"><i class="fa fa-search"></i>&nbsp;Search By Item Name :</h4>
                         <form>
-                            <input type="text" id="itemname" class="form-control col-lg-4">
+                            <input type="text" id="itemname" class="form-control col-lg-4" oninput="searchItem(this.value)">
                         </form>
+                    </div>
+                    <div id="searchItem" style="padding-top: 20px;">
+                    
                     </div>
                 </div>
             </div>
@@ -60,7 +50,7 @@
         <?php
         //        $_SESSION['ucid'] = 0;
 
-        $query = "SELECT i.itemid, i.itemstatus, i.itemname, i.itemprice, path FROM item i join img on img.itemid = i.itemid ORDER BY i.itemid ASC";
+        $query = "SELECT i.itemid, i.itemstatus, i.itemname, i.itemprice, i.userid, path FROM item i join img on img.itemid = i.itemid ORDER BY i.itemid ASC";
         $results = mysqli_query($con, $query);
 
         while ($items = mysqli_fetch_array($results)) {
@@ -69,11 +59,12 @@
             $itemprice = $items['itemprice'];
             $itemid = $items['itemid'];
             $itemstatus = $items['itemstatus'];
+            $sellerid = $items['userid'];
             $status = "Available";
 
             if ($status = $itemstatus) {
                 echo "
-            <div class='col-lg-4' style='padding-top: 20px' id='$itemname'>
+            <div class='col-lg-4' style='padding-top: 20px' id='$itemname-02$sellerid'>
               <div class=\"card\" style='border: solid 1px;'>
                 <img class=\"card-img-top\" src=\"$path\" height='300px' style='padding: 8px;' align='center'>
                 <div class=\"card-block\">
@@ -86,7 +77,8 @@
 	                <input type=\"hidden\" name=\"type\" value=\"add\" />
 	                <input type=\"hidden\" name=\"return_url\" value=\"{$current_url}\" />
 	                <br/>
-	                <button type=\"submit\" class=\"btn btn-primary\"><i class=\"fa fa-plus\"></i>&nbsp;Buy</button>
+                    <button type=\"submit\" class=\"btn btn-primary\"><i class=\"fa fa-plus\"></i>&nbsp;Add To Cart</button>
+                    <button type=\"button\" class=\"btn btn-info\"><i class=\"fa fa-plus\"></i>&nbsp;More Info</button>
                   </form>
                 </div>
              </div> 
