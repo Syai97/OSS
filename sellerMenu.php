@@ -72,7 +72,7 @@
                                             </div>
                                             <br/>
                                             <div class='col-lg-6'>
-                                                <button class='btn btn-info'>Update Account</button>
+                                                <button class='btn btn-info' onclick='location.href = \"index.php?page=updateAccount\" '>Update Account</button>
                                             </div>
                                       
                                             "

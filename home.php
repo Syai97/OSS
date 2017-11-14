@@ -62,7 +62,7 @@
             $sellerid = $items['userid'];
             $status = "Available";
 
-            if ($status = $itemstatus) {
+            if ($status == $itemstatus) {
                 echo "
             <div class='col-lg-4' style='padding-top: 20px' id='$itemname-02$sellerid'>
               <div class=\"card\" style='border: solid 1px;'>
@@ -78,7 +78,7 @@
 	                <input type=\"hidden\" name=\"return_url\" value=\"{$current_url}\" />
 	                <br/>
                     <button type=\"submit\" class=\"btn btn-primary\"><i class=\"fa fa-plus\"></i>&nbsp;Add To Cart</button>
-                    <button type=\"button\" class=\"btn btn-info\"><i class=\"fa fa-plus\"></i>&nbsp;More Info</button>
+                    <button type=\"button\" class=\"btn btn-info\" onclick=\"location.href = 'index.php?page=itemInfo&itemId=$itemid';\"><i class=\"fa fa-plus\"></i>&nbsp;More Info</button>
                   </form>
                 </div>
              </div> 
