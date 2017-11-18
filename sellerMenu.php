@@ -5,14 +5,14 @@
             if(isset($_GET['message'])){
                 if($_GET['message'] == 'true'){
                     echo "
-                    <div class='alert alert-success' align='center'>
+                    <div id='alertMsg' class='alert alert-success' align='center'>
                         Item Successfully Updated.
                     </div> 
                     ";
                 }
                 else{
                     echo "
-                    <div class='alert alert-danger' align='center'>
+                    <div  id='alertMsg' class='alert alert-danger' align='center'>
                         There Is An Error In Processing Your Update Request.Please Contact User Support. 
                     </div> 
                     ";
@@ -82,8 +82,7 @@
                                     <div class="collapse" id="myOrders" style="padding-top: 10px">
                                         <div class="card card-block">
                                             <?php
-                                            //SQL QUERY FAIL??? CHECK THIS !!!
-                                                $userid = "1";//CHANGE THIS DONT FORGET!!!! BITCH
+                                                $userid = $_SESSION['userid'];
                                                 $sqlCustOrders = "SELECT orders.ordersdate,orders.ordersid,orders.orderstatus,orders.paymentproof,ordersdetail.quantity as itemQuantity, item.itemname as itemName
                                                 FROM orders 
                                                 JOIN ordersdetail
@@ -245,9 +244,49 @@
                                                                 </tr>   
                                                             </tbody>
                                                         </table>
-                                                    <form>
+                                                    </form>
                                                 ";
+
+                                               echo "<button type='button' class='btn btn-primary btn-lg btn-block' data-toggle='modal' data-target='#exampleModal'>Add Item</button>";
                                             ?>
+                                               
+                                               <!-- Modal add item -->
+                                               <form  method='post' action='sellerMenu_ps.php' enctype='multipart/form-data'>
+                                                    <div class='modal fade' id='exampleModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                                                        <div class='modal-dialog' role='document'>
+                                                            <div class='modal-content'>
+                                                                <div class='modal-header'>
+                                                                    <h5 class='modal-title' id='exampleModalLabel'>Add Item</h5>
+                                                                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                                                        <span aria-hidden='true'>&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                            
+                                                            <div class='modal-body'>
+                                                                <div class='form-group'>
+                                                                    <label for='addItemName'>Item Name</label>
+                                                                    <input type='text' class='form-control' name='addItemName' id='addItemName'>
+                                                                </div>
+                                                                <label for='addItemPrice'>Item Price</label>
+                                                                <div class='input-group mb-2 mr-sm-2 mb-sm-0'>
+                                                                    <div class='input-group-addon'>RM</div>
+                                                                    <input type='text' class='form-control' name='addItemPrice' id='addItemPrice' placeholder='eg. 10.00'>
+                                                                </div>
+                                                                <div class='form-group'>
+                                                                    <label for='addItemPicture'>Item Picture</label>
+                                                                    <input type='file' class='form-control-file' name='addItemPicture'>
+                                                                </div>
+                                                            </div>
+                                                            <div class='modal-footer'>
+                                                                <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
+                                                                <button name="addItem" type='submit' class='btn btn-primary'>Confirm</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
