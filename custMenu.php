@@ -9,7 +9,7 @@
                        <div class='alert alert-success' align='center'>
                             You Have Successfully Paid For Your Item.
                             You Orders Will Be Notified To The Seller.
-                            <a href='printreceipt.php'> Click Here To Print The Receipt</a>
+                            <a href='index.php?page=orderReceipt&od=".$_GET['od']."'> Click Here To Print The Receipt</a>
                        </div> 
                        ";
                    }
