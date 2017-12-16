@@ -5,7 +5,7 @@ include_once ("lib/func.php");
 
 if(isset($_POST['payProof'])){
     $username = $_SESSION['username'];
-    $ordersid = $_POST['ordersid'];
+    $ordersid = secure_input($con, $_POST['ordersid']);
     $temp = $_FILES['payment']['tmp_name'];
     $pay_Proof = $_FILES['payment']['name'];
     $ext = pathinfo($pay_Proof, PATHINFO_EXTENSION);

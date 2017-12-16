@@ -83,9 +83,10 @@
                                         <div class="card card-block">
                                             <?php
                                                 $userid = $_SESSION['userid'];
-                                                $sqlCustOrders = "SELECT orders.ordersdate,orders.ordersid,orders.orderstatus,orders.paymentproof,ordersdetail.quantity as itemQuantity, item.itemname as itemName
+                                                $sqlCustOrders = 
+                                                "SELECT orders.ordersdate,orders.ordersid,orders.orderstatus,orders.paymentproof,ordersdetail.quantity as itemQuantity, item.itemname as itemName
                                                 FROM orders 
-                                                JOIN ordersdetail
+                                                 JOIN  ordersdetail
                                                 ON orders.ordersid = ordersdetail.detailid
                                                 JOIN item
                                                 ON ordersdetail.itemid = item.itemid

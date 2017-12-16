@@ -35,6 +35,13 @@ $(window).on("resize", function () {
 $(function () {
   $('[data-toggle="popover"]').popover()
 })
+//for alert message in seller on how long to display the alert message
+function alertTimeout() {
+    setTimeout(function(){ 
+        document.getElementsById("alertMsg").innerHTML= "<div></div>"
+     }, 1000);
+}
+
 //function sortItem(id){
 //    alert(id);
 //    document.getElementById(id).style.display = "none";
@@ -76,6 +83,7 @@ function searchItem(str) {
             xmlhttp.send();
         }
     }
+
 
 </script>
 <footer id="footer" style="margin-top: 40px;color: white">

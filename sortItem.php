@@ -1,8 +1,9 @@
 <?php
   
   include_once ("config/db.php");
+  include_once('lib/func.php');
 
-  $itemname = $_GET['search'];
+  $itemname = secure_input($con, $_GET['search']);
 
   $sql = "SELECT * FROM item WHERE itemname LIKE '%$itemname%'";
   $query = mysqli_query($con, $sql);
