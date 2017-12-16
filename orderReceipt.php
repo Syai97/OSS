@@ -20,13 +20,14 @@ if(isset($_GET['od'])) {
 
     $sql2 = "select * from ordersdetail where ordersid = $ordersid";
     $query2 = mysqli_query($con, $sql2);
+    $od = str_pad($ordersid, 4, "00", STR_PAD_LEFT);
 
 
     echo "
 <div class='container'>
 <br/>
 <div class='card' style='padding: 10px' id='print'>
-  <h1 class='text-center'>Order #$ordersid Receipt</h1>
+  <h1 class='text-center'>Order #$od Receipt</h1>
 <div class='row' style='padding-top: 2em'>
 <div class='col-lg-6'>
     <table class='table table-bordered' >
@@ -50,7 +51,7 @@ if(isset($_GET['od'])) {
 <table id=\"meta\" class='table table-bordered'>
     <tr>
         <td class=\"meta - head\">Order #</td>
-        <td>$ordersid</td>
+        <td>$od</td>
     </tr>
     <tr>
 

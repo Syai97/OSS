@@ -20,8 +20,9 @@ if(isset($_POST['payProof'])){
     if($query){
         $sql4 = "UPDATE orders SET orderstatus = 'Paid' WHERE ordersid = $ordersid";
         $query4 = mysqli_query($con, $sql4);
+        echo $rLink = 'index.php?page=custMenu&paySuccess=1&od='.$ordersid;
 
-        redirect('index.php?page=custMenu&paySuccess=1');
+        redirect($rLink);
     }
     else
         redirect('index.php?page=custMenu&paySuccess=2');

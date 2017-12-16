@@ -5,22 +5,21 @@ if(isset($_POST['login'])){
     include ("config/db.php");
     include ("lib/func.php");
 
-     $username = secure_input($con,$_POST['username']);
-     $password = secure_input($con,$_POST['password']);
+    $username = secure_input($con,$_POST['username']);
+    $password = secure_input($con,$_POST['password']);
 
     $userid = null;
 
     //$password = md5($password);
 
-    $sql = "SELECT * FROM users WHERE username='$username' AND password='$password' LIMIT 1";
+    $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
     $query = mysqli_query($con, $sql);
     
-    //header("Location: https://www.youtube.com/");
-    if($query) {
+    if(mysqli_num_rows($query) == 1) {
+        
         $row = mysqli_fetch_array($query);
         $id = $row['username'];
         $userfullname = $row['userfullname'];
-        $db_password = $row['password'];
         $userid = $row['userid'];
         $ucid = $row['ucid'];
         $_SESSION['userid'] = $userid;
