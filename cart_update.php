@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("config/db.php");
+include_once ("lib/func.php");
 $_SESSION['payment'] = false;
 if(!isset($_SESSION['userid'])){
     echo"
@@ -33,7 +34,7 @@ else {
             unset($new_product['return_url']);
 
             //we need to get product name and price from database.
-            $itemid = $_POST['itemid'];
+            $itemid = secure_input($con, $_POST['itemid']);
             $query = "SELECT itemname, itemprice FROM item WHERE itemid=$itemid";
             $result = mysqli_query($con, $query);
 
