@@ -84,15 +84,16 @@
                                             <?php
                                                 $userid = $_SESSION['userid'];
                                                 $sqlCustOrders = 
-                                                "SELECT orders.ordersdate,orders.ordersid,orders.orderstatus,orders.paymentproof,ordersdetail.quantity as itemQuantity, item.itemname as itemName
-                                                FROM orders 
-                                                 JOIN  ordersdetail
-                                                ON orders.ordersid = ordersdetail.detailid
-                                                JOIN item
-                                                ON ordersdetail.itemid = item.itemid
-                                                JOIN users
-                                                ON item.userid = users.userid
-                                                WHERE users.userid = $userid";
+                                                "SELECT orders.ordersid,orders.userid buyerid,users.username,users.useraddress,users.usertel,orders.ordersdate,orders.orderstatus,orders.paymentproof,ordersdetail.itemid,item.itemname as itemName,ordersdetail.quantity as itemQuantity,ordersdetail.detailid,item.userid
+                                                    FROM orders 
+                                                    JOIN users 
+                                                    ON users.userid = orders.userid 
+                                                    JOIN ordersdetail 
+                                                    ON orders.ordersid = ordersdetail.ordersid 
+                                                    JOIN item 
+                                                    ON ordersdetail.itemid = item.itemid
+                                                    WHERE item.userid = $userid
+                                                    ORDER BY orders.ordersid";
                                                 $queryCustOrders = mysqli_query($con, $sqlCustOrders);
                                                 echo"<table class='table table-bordered table-responsive'>
                                                     <thead align='left'>
@@ -103,12 +104,14 @@
                                                         <th>Quantity</th>
                                                         <th>Payment Status</th>
                                                         <th>Buyer Username</th>
-                                                        <th>View Receipt</th>
+                                                        <th>View Payment Slip</th>
                                                         
                                                     </tr>
                                                     </thead>
                                                     <tbody>";
                                                 $indexOrderTable = 1;
+                                                $prevItemId = null;
+                                                $sameOrderFlag = false;
                                                 while($row = mysqli_fetch_array($queryCustOrders)){
                                                     $ordersId = $row['ordersid'];
                                                     $ordersDate = $row['ordersdate'];
@@ -116,7 +119,6 @@
                                                     $orderReceipt = $row['paymentproof'];
                                                     $itemName = $row['itemName'];
                                                     $itemQuantity = $row['itemQuantity'];
-
                                                     //query customer info based on orders number
                                                     $sqlfetchCustInfo = "SELECT users.userid,users.username,users.userfullname,users.usertel,users.useraddress,orders.ordersid
                                                     FROM users
@@ -130,8 +132,28 @@
                                                     $custFullname = $rowCustInfo['userfullname'];
                                                     $custTel = $rowCustInfo['usertel'];
                                                     $custAddress = $rowCustInfo['useraddress'];
+                                            
+                                                    if($prevItemId == null){
+                                                         $prevItemId = $ordersId;
+                                                         $sameOrderFlag = false;
+                                                    } else if ($prevItemId == $ordersId){
+                                                         $sameOrderFlag = true;
+                                                    } else {
+                                                         $sameOrderFlag = false;
+                                                    }
+                                                    
+                                                    echo" <tr class='border-top 0px;'>";
+                                                    if($sameOrderFlag == true){
+                                                        echo "
+                                                        <td colspan='2'></td>
+                                                        <td>$itemName</td>
+                                                        <td>$itemQuantity</td>
+                                                        <td colspan='3'></td>";
 
-                                                    echo"   <tr>
+                                                    }
+                                                    else if($sameOrderFlag == false){
+                                                        echo "
+                                                    
                                                             <td>$ordersId</td>
                                                             <td>$ordersDate</td>
                                                             <td>$itemName</td>
@@ -161,8 +183,10 @@
                                                             </div>
                                                           </div>";
                                                     
-                                                        
-                                                          $indexOrderTable++;
+                                                        $prevItemId = $ordersId;
+                                                        $sameOrderFlag = false;
+                                                        $indexOrderTable++;
+                                                        }
                                                 }
                                                 echo"
                                                         </tr>
